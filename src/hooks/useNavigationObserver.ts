@@ -12,7 +12,7 @@ export const useNavigationObserver = (callback: () => void) => {
 
   observer.observe(document.body, {
     childList: true,
-    subtree: true
+    subtree: true,
   });
 
   onCleanup(() => observer.disconnect());

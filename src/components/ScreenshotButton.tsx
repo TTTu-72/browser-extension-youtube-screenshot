@@ -1,5 +1,6 @@
 import { JSX } from 'solid-js';
-import shutterIcon from '../assets/youtube_camera_shutter.svg?raw';
+/* eslint-disable no-unused-vars */
+import { splitProps } from 'solid-js';
 
 interface ScreenshotButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
   video: HTMLVideoElement;
@@ -8,19 +9,15 @@ interface ScreenshotButtonProps extends JSX.ButtonHTMLAttributes<HTMLButtonEleme
   title?: string;
 }
 
-export const ScreenshotButton = ({
-  video,
-  onScreenshot,
-  title,
-  icon,
-  ...props
-}: ScreenshotButtonProps) => {
+export const ScreenshotButton = (_props: ScreenshotButtonProps) => {
+  const [local, others] = splitProps(_props, ['video', 'onScreenshot', 'title', 'icon']);
   return (
     <button
-      onClick={() => onScreenshot(video)}
-      title={title ?? "スクリーンショットを撮る"}
-      innerHTML={icon}
-      {...props}
+      onClick={() => local.onScreenshot(_props.video)}
+      title={local.title ?? 'スクリーンショットを撮る'}
+      // eslint-disable-next-line solid/no-innerhtml
+      innerHTML={local.icon}
+      {...others}
     />
   );
 };

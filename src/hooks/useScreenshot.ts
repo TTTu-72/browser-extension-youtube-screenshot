@@ -16,8 +16,8 @@ export const useScreenshot = () => {
         type: 'DOWNLOAD_SCREENSHOT',
         data: {
           imageDataUrl,
-          filename
-        }
+          filename,
+        },
       });
     } catch (error) {
       console.error('Screenshot error:', error);
@@ -49,7 +49,7 @@ export const useScreenshot = () => {
       'ytd-channel-name #text a',
       '#owner-name a',
       '.ytd-video-owner-renderer a',
-      '#channel-name a'
+      '#channel-name a',
     ];
 
     for (const selector of selectors) {
@@ -78,7 +78,7 @@ export const useScreenshot = () => {
       const result = await browser.storage.local.get([
         'screenshotFolder',
         'useChannelFolder',
-        'useTitleFolder'
+        'useTitleFolder',
       ]);
 
       const folder = result.screenshotFolder || '';
@@ -107,7 +107,6 @@ export const useScreenshot = () => {
       const filename = `${cleanTitle}_${timestamp}.png`;
 
       return path ? `${path}/${filename}` : filename;
-
     } catch (error) {
       console.error('Failed to get settings:', error);
       return `${cleanTitle}_${timestamp}.png`;
@@ -115,6 +114,6 @@ export const useScreenshot = () => {
   };
 
   return {
-    takeScreenshot
+    takeScreenshot,
   };
 };

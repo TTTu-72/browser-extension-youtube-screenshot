@@ -28,10 +28,10 @@ export const useYouTube = () => {
         return playerElement;
       }
 
-      if (Date.now() - start > timeoutMs) throw new Error("Player not found within timeout");
+      if (Date.now() - start > timeoutMs) throw new Error('Player not found within timeout');
 
       // 1秒待つ
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 1000));
     }
   };
 
@@ -41,8 +41,10 @@ export const useYouTube = () => {
   const waitForVideo = async (): Promise<HTMLVideoElement> => {
     const current = video();
     if (current) return current;
-    return await waitForPlayer().then(() => video()!);
-  }
+
+    await waitForPlayer();
+    return video() || Promise.reject(new Error('Video element not available'));
+  };
 
   /**
    * YouTube Playerにボタンを追加
@@ -67,7 +69,9 @@ export const useYouTube = () => {
    * YouTubeのタイトルを取得
    */
   const getVideoTitle = (): string => {
-    const titleElement = document.querySelector('h1.style-scope.ytd-watch-metadata yt-formatted-string');
+    const titleElement = document.querySelector(
+      'h1.style-scope.ytd-watch-metadata yt-formatted-string'
+    );
     return titleElement?.textContent?.trim() || 'youtube_video';
   };
 

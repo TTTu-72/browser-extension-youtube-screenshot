@@ -13,7 +13,7 @@ function App() {
       const result = await browser.storage.local.get([
         'screenshotFolder',
         'useChannelFolder',
-        'useTitleFolder'
+        'useTitleFolder',
       ]);
       if (result.screenshotFolder) {
         setFolder(result.screenshotFolder);
@@ -60,11 +60,11 @@ function App() {
       try {
         await browser.storage.local.set({
           useChannelFolder: useChannelFolder(),
-          useTitleFolder: useTitleFolder()
+          useTitleFolder: useTitleFolder(),
         });
         console.log('Folder options auto-saved:', {
           useChannelFolder: useChannelFolder(),
-          useTitleFolder: useTitleFolder()
+          useTitleFolder: useTitleFolder(),
         });
       } catch (error) {
         console.error('Failed to save folder options:', error);
@@ -102,7 +102,7 @@ function App() {
             id="folder-input"
             type="text"
             value={folder()}
-            onInput={(e) => setFolder(e.currentTarget.value)}
+            onInput={e => setFolder(e.currentTarget.value)}
             placeholder="e.g., YouTube Screenshots"
             class="folder-input"
           />
@@ -113,7 +113,7 @@ function App() {
             <input
               type="checkbox"
               checked={useChannelFolder()}
-              onChange={(e) => setUseChannelFolder(e.currentTarget.checked)}
+              onChange={e => setUseChannelFolder(e.currentTarget.checked)}
               class="checkbox"
             />
             チャンネル名でサブフォルダを作成
@@ -123,16 +123,14 @@ function App() {
             <input
               type="checkbox"
               checked={useTitleFolder()}
-              onChange={(e) => setUseTitleFolder(e.currentTarget.checked)}
+              onChange={e => setUseTitleFolder(e.currentTarget.checked)}
               class="checkbox"
             />
             動画タイトルでサブフォルダを作成
           </label>
         </div>
 
-        <p class="setting-help">
-          保存先: {getPreviewPath()}/ファイル名.png
-        </p>
+        <p class="setting-help">保存先: {getPreviewPath()}/ファイル名.png</p>
       </div>
     </div>
   );

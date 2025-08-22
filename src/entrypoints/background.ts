@@ -25,7 +25,7 @@ const handleScreenshotDownload = async (data: {
     console.error('Download error:', error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error'
+      error: error instanceof Error ? error.message : 'Unknown error',
     };
   }
 };
