@@ -9,7 +9,8 @@ export default defineConfig({
     description: 'YouTubeの動画にスクリーンショット機能を追加します',
     permissions: [
       'activeTab',
-      'downloads'
+      'downloads',
+      'storage'
     ],
     host_permissions: [
       '*://*.youtube.com/*'
