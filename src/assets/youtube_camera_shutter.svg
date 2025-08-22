@@ -2,12 +2,9 @@
 <!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 
 <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" width="24" height="24" style="display: block; width: 100%" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#fff; stroke:#333; stroke-width:2;}
-</style>
   <use class="ytp-svg-shadow" href="#ytp-screenshot-button"></use>
   <g>
-	<path id="ytp-screenshot-button" class="st0" d="M256,0C114.618,0,0.009,114.61,0,256c0.009,141.39,114.618,255.991,256,256
+	<path id="ytp-screenshot-button" fill="#fff" stroke="#000" stroke-width="1" d="M256,0C114.618,0,0.009,114.61,0,256c0.009,141.39,114.618,255.991,256,256
 		c141.381-0.008,255.991-114.61,256-256C511.992,114.61,397.382,0,256,0z M412.82,99.189c27.299,27.315,47.467,61.66,57.606,100.108
 		c-61.944-25.359-117.251-37.345-161.258-42.57c-23.053-2.733-43.004-3.619-59.202-3.619c-7.456,0-14.084,0.184-19.885,0.468
 		c26.387-32.08,62.07-68.045,109.378-103.042C367.116,61.777,392.024,78.402,412.82,99.189z M256.008,34.236
