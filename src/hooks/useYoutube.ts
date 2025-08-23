@@ -96,11 +96,32 @@ export const useYouTube = () => {
     return 'Unknown Channel';
   };
 
+  /**
+   * YouTube動画の再生時刻を取得
+   * @param video
+   */
+  const getVideoTimeStamp = (video: HTMLVideoElement): string => {
+    const currentTime = Math.floor(video.currentTime);
+
+    const hours = Math.floor(currentTime / 3600);
+    const minutes = Math.floor((currentTime % 3600) / 60);
+    const seconds = currentTime % 60;
+
+    if (hours > 0) {
+      return `${hours}h${minutes.toString().padStart(2, '0')}m${seconds.toString().padStart(2, '0')}s`;
+    } else if (minutes > 0) {
+      return `${minutes}m${seconds.toString().padStart(2, '0')}s`;
+    } else {
+      return `${seconds}s`;
+    }
+  };
+
   return {
     waitForPlayer,
     waitForVideo,
     addButtonToPlayer,
     getVideoTitle,
     getChannelName,
+    getVideoTimeStamp,
   };
 };

@@ -5,18 +5,18 @@ import shutterIcon from '../../assets/youtube_camera_shutter.svg?raw';
 import { useScreenshot } from '@/hooks/useScreenshot';
 
 export const buttonManager = () => {
-  const { waitForVideo, addButtonToPlayer, getVideoTitle, getChannelName } = useYouTube();
+  const { waitForVideo, addButtonToPlayer, getVideoTitle, getChannelName, getVideoTimeStamp } = useYouTube();
   const { takeScreenshot } = useScreenshot();
 
   const handleScreenshot = async (video: HTMLVideoElement): Promise<void> => {
-    await takeScreenshot(video, await generateFilename(getVideoTitle(), getChannelName()));
+    await takeScreenshot(video, await generateFilename(getVideoTitle(), getChannelName(), video));
   };
 
-  const generateFilename = async (title: string, channelName: string): Promise<string> => {
+  const generateFilename = async (title: string, channelName: string, video: HTMLVideoElement): Promise<string> => {
     // ファイル名に使用できない文字を置換
     const cleanTitle = title.replace(/[<>:"/\\|?*]/g, '_').substring(0, 80);
     const cleanChannelName = channelName.replace(/[<>:"/\\|?*]/g, '_').substring(0, 80);
-    const timestamp = getCurrentTimestamp();
+    const videoTimestamp = getVideoTimeStamp(video);
 
     // 設定を取得
     try {
@@ -49,12 +49,12 @@ export const buttonManager = () => {
       }
 
       // ファイル名
-      const filename = `${cleanTitle}_${timestamp}.png`;
+      const filename = `${cleanTitle}_${videoTimestamp}.png`;
 
       return path ? `${path}/${filename}` : filename;
     } catch (error) {
       console.error('Failed to get settings:', error);
-      return `${cleanTitle}_${timestamp}.png`;
+      return `${cleanTitle}_${videoTimestamp}.png`;
     }
   };
 
