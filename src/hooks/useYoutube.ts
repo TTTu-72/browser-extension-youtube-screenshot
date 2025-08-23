@@ -75,10 +75,32 @@ export const useYouTube = () => {
     return titleElement?.textContent?.trim() || 'youtube_video';
   };
 
+  /**
+   * YouTubeのチャンネル名を取得
+   */
+  const getChannelName = (): string => {
+    const selectors = [
+      'ytd-channel-name #text a',
+      '#owner-name a',
+      '.ytd-video-owner-renderer a',
+      '#channel-name a',
+    ];
+
+    for (const selector of selectors) {
+      const element = document.querySelector(selector);
+      if (element?.textContent?.trim()) {
+        return element.textContent.trim();
+      }
+    }
+
+    return 'Unknown Channel';
+  };
+
   return {
     waitForPlayer,
     waitForVideo,
     addButtonToPlayer,
     getVideoTitle,
+    getChannelName,
   };
 };

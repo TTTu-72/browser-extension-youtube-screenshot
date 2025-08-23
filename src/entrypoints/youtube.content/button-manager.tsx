@@ -5,11 +5,57 @@ import shutterIcon from '../../assets/youtube_camera_shutter.svg?raw';
 import { useScreenshot } from '@/hooks/useScreenshot';
 
 export const buttonManager = () => {
-  const { waitForVideo, addButtonToPlayer, getVideoTitle } = useYouTube();
+  const { waitForVideo, addButtonToPlayer, getVideoTitle, getChannelName } = useYouTube();
   const { takeScreenshot } = useScreenshot();
 
   const handleScreenshot = async (video: HTMLVideoElement): Promise<void> => {
-    await takeScreenshot(video, getVideoTitle());
+    await takeScreenshot(video, await generateFilename(getVideoTitle(), getChannelName()));
+  };
+
+  const generateFilename = async (title: string, channelName: string): Promise<string> => {
+    // ファイル名に使用できない文字を置換
+    const cleanTitle = title.replace(/[<>:"/\\|?*]/g, '_').substring(0, 80);
+    const cleanChannelName = channelName.replace(/[<>:"/\\|?*]/g, '_').substring(0, 80);
+    const timestamp = getCurrentTimestamp();
+
+    // 設定を取得
+    try {
+      const result = await browser.storage.local.get([
+        'screenshotFolder',
+        'useChannelFolder',
+        'useTitleFolder',
+      ]);
+
+      const folder = result.screenshotFolder || '';
+      const useChannelFolder = result.useChannelFolder || false;
+      const useTitleFolder = result.useTitleFolder || false;
+
+      let path = '';
+
+      // 指定されたフォルダ
+      if (folder.trim()) {
+        const cleanFolder = folder.replace(/[<>:"/\\|?*]/g, '_');
+        path += cleanFolder;
+      }
+
+      // チャンネル名フォルダ
+      if (useChannelFolder) {
+        path += path ? `/${cleanChannelName}` : cleanChannelName;
+      }
+
+      // 動画タイトルフォルダ
+      if (useTitleFolder) {
+        path += path ? `/${cleanTitle}` : cleanTitle;
+      }
+
+      // ファイル名
+      const filename = `${cleanTitle}_${timestamp}.png`;
+
+      return path ? `${path}/${filename}` : filename;
+    } catch (error) {
+      console.error('Failed to get settings:', error);
+      return `${cleanTitle}_${timestamp}.png`;
+    }
   };
 
   const addScreenshotButtonToYouTubePlayer = async () => {
