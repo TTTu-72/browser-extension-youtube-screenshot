@@ -1,9 +1,15 @@
 {
-  "name": "wxt-solid-starter",
-  "description": "manifest.json description",
+  "name": "YouTube Screenshot Extension",
+  "description": "YouTubeの動画プレイヤーにスクリーンショット機能を追加するブラウザ拡張機能",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
+  "license": "MIT",
+  "author": "TTTu-72",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TTTu-72/chrome-extension-youtube-screenshot.git"
+  },
   "scripts": {
     "dev": "wxt",
     "dev:firefox": "wxt -b firefox",

@@ -1,3 +1,23 @@
-# WXT + SolidJS
+# YouTube Screenshot Extension
 
-This template should help get you started developing with SolidJS in WXT.
+YouTubeの動画プレイヤーにスクリーンショット機能を追加するブラウザ拡張機能です。
+
+## 機能
+
+- YouTubeの動画プレイヤーにスクリーンショットボタンを追加
+- ワンクリックで現在の動画フレームをPNG形式でダウンロード
+- チャンネル名や動画タイトルによる自動フォルダ分け
+- カスタマイズ可能な保存先設定
+
+### Chromeでデベロッパーモードでの読み込み
+
+1. **Chrome拡張機能ページを開く**
+  - Chromeで `chrome://extensions/` にアクセス
+  - または「設定」→「拡張機能」→「拡張機能を管理」
+
+2. **デベロッパーモードを有効化**
+  - 右上の「デベロッパーモード」トグルをオンにする
+
+3. **拡張機能を読み込む**
+  - 「パッケージ化されていない拡張機能を読み込む」をクリック
+  - プロジェクトルートの `.output/chrome-mv3` フォルダを選択
