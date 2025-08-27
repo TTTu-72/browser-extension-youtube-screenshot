@@ -1,15 +1,8 @@
 import { createSignal } from 'solid-js';
-import { useNavigationObserver } from '@/hooks/useNavigationObserver';
 
 export const useYouTube = () => {
   const [player, setPlayer] = createSignal<HTMLElement | null>(null);
   const [video, setVideo] = createSignal<HTMLVideoElement | null>(null);
-
-  // 動画切り替えでリセット
-  useNavigationObserver(() => {
-    setPlayer(null);
-    setVideo(null);
-  });
 
   /**
    * YouTube Player要素を取得
@@ -23,9 +16,11 @@ export const useYouTube = () => {
       const playerElement = document.querySelector('.html5-video-player') as HTMLElement | null;
       if (playerElement) {
         const videoElement = playerElement.querySelector('video') as HTMLVideoElement;
-        setVideo(videoElement);
-        setPlayer(playerElement);
-        return playerElement;
+        if (videoElement) {
+          setVideo(videoElement);
+          setPlayer(playerElement);
+          return playerElement;
+        }
       }
 
       if (Date.now() - start > timeoutMs) throw new Error('Player not found within timeout');
@@ -44,25 +39,6 @@ export const useYouTube = () => {
 
     await waitForPlayer();
     return video() || Promise.reject(new Error('Video element not available'));
-  };
-
-  /**
-   * YouTube Playerにボタンを追加
-   * @param buttonElement
-   */
-  const addButtonToPlayer = async (buttonElement: HTMLElement) => {
-    const currentPlayer = await waitForPlayer();
-
-    // コントロールバーを取得
-    const controls = currentPlayer.querySelector('.ytp-chrome-bottom');
-    if (!controls) return false;
-
-    // 右側のコントロール群を取得
-    const rightControls = controls.querySelector('.ytp-right-controls');
-    if (!rightControls) return false;
-
-    rightControls.insertBefore(buttonElement, rightControls.firstChild);
-    return true;
   };
 
   /**
@@ -119,7 +95,6 @@ export const useYouTube = () => {
   return {
     waitForPlayer,
     waitForVideo,
-    addButtonToPlayer,
     getVideoTitle,
     getChannelName,
     getVideoTimeStamp,

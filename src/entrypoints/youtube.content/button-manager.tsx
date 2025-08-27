@@ -1,11 +1,11 @@
 import { render } from 'solid-js/web';
 import { ScreenshotButton } from '@/components/ScreenshotButton';
 import { useYouTube } from '@/hooks/useYoutube';
-import shutterIcon from '../../assets/youtube_camera_shutter.svg?raw';
 import { useScreenshot } from '@/hooks/useScreenshot';
+import shutterIcon from '../../assets/youtube_camera_shutter.svg?raw';
 
 export const buttonManager = () => {
-  const { waitForVideo, addButtonToPlayer, getVideoTitle, getChannelName, getVideoTimeStamp } = useYouTube();
+  const { waitForPlayer, waitForVideo, getVideoTitle, getChannelName, getVideoTimeStamp } = useYouTube();
   const { takeScreenshot } = useScreenshot();
 
   const handleScreenshot = async (video: HTMLVideoElement): Promise<void> => {
@@ -56,6 +56,18 @@ export const buttonManager = () => {
       console.error('Failed to get settings:', error);
       return `${cleanTitle}_${videoTimestamp}.png`;
     }
+  };
+
+  const addButtonToPlayer = async (buttonElement: HTMLElement) => {
+    const currentPlayer = await waitForPlayer();
+
+    const controls = currentPlayer.querySelector('.ytp-chrome-bottom');
+    if (!controls) return;
+
+    const rightControls = controls.querySelector('.ytp-right-controls');
+    if (!rightControls) return;
+
+    rightControls.insertBefore(buttonElement, rightControls.firstChild);
   };
 
   const addScreenshotButtonToYouTubePlayer = async () => {
