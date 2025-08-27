@@ -57,9 +57,7 @@ export const useYouTube = () => {
   const getChannelName = (): string => {
     const selectors = [
       'ytd-channel-name #text a',
-      '#owner-name a',
       '.ytd-video-owner-renderer a',
-      '#channel-name a',
     ];
 
     for (const selector of selectors) {
@@ -69,7 +67,7 @@ export const useYouTube = () => {
       }
     }
 
-    return 'Unknown Channel';
+    return 'Youtube';
   };
 
   /**
