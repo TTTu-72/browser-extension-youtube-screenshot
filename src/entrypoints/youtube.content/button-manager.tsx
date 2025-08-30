@@ -14,8 +14,8 @@ export const buttonManager = () => {
 
   const generateFilename = async (title: string, channelName: string, video: HTMLVideoElement): Promise<string> => {
     // ファイル名に使用できない文字を置換
-    const cleanTitle = title.replace(/[<>:"/\\|?*]/g, '_').substring(0, 80);
-    const cleanChannelName = channelName.replace(/[<>:"/\\|?*]/g, '_').substring(0, 80);
+    const cleanTitle = title.replace(/[<>:"/\\|?*]/g, '_').substring(0, 100).trim();
+    const cleanChannelName = channelName.replace(/[<>:"/\\|?*]/g, '_').substring(0, 80).trim();
     const videoTimestamp = getVideoTimeStamp(video);
 
     // 設定を取得
