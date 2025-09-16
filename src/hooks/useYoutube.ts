@@ -55,19 +55,8 @@ export const useYouTube = () => {
    * YouTubeのチャンネル名を取得
    */
   const getChannelName = (): string => {
-    const selectors = [
-      'ytd-channel-name #text a',
-      '.ytd-video-owner-renderer a',
-    ];
-
-    for (const selector of selectors) {
-      const element = document.querySelector(selector);
-      if (element?.textContent?.trim()) {
-        return element.textContent.trim();
-      }
-    }
-
-    return 'Youtube';
+    const element = document.querySelector('.ytd-video-owner-renderer .ytd-channel-name a');
+    return element?.textContent?.trim() || 'Youtube';
   };
 
   /**
