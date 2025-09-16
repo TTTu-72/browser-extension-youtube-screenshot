@@ -2,7 +2,7 @@
   "name": "YouTube Screenshot Extension",
   "description": "YouTubeの動画プレイヤーにスクリーンショット機能を追加するブラウザ拡張機能",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "license": "MIT",
   "author": "TTTu-72",
