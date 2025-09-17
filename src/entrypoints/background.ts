@@ -13,7 +13,13 @@ const handleScreenshotDownload = async (data: {
   imageDataUrl: string;
   filename: string;
 }): Promise<{ success: boolean; downloadId?: number; error?: string }> => {
+  const downloadListener = (item: any, suggest: any) => {
+    suggest({ filename: data.filename });
+    browser.downloads.onDeterminingFilename.removeListener(downloadListener);
+  };
+
   try {
+    browser.downloads.onDeterminingFilename.addListener(downloadListener);
     const downloadId = await browser.downloads.download({
       url: data.imageDataUrl,
       filename: data.filename,
